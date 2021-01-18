@@ -12,11 +12,55 @@
     <com.udacity.LoadingButton
         android:id="@+id/custom_button"
         android:layout_width="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_height="60dp"
         android:layout_margin="20dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:buttonColor="@color/colorPrimary"
+        app:text="@string/button_name"/>
+
+    <RadioButton
+        android:id="@+id/glide_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/glide_button_text"
+        app:layout_constraintBottom_toTopOf="@+id/load_app_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <RadioButton
+        android:id="@+id/load_app_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/loadingapp_button_text"
+        app:layout_constraintBottom_toTopOf="@+id/retrofit_button"
+        app:layout_constraintStart_toStartOf="@+id/glide_button"
+        app:layout_constraintTop_toBottomOf="@+id/glide_button" />
+
+    <RadioButton
+        android:id="@+id/retrofit_button"
+        style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/retrofit_button_text"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toTopOf="@+id/custom_button"
+        app:layout_constraintStart_toStartOf="@+id/load_app_button"
+        app:layout_constraintTop_toBottomOf="@+id/load_app_button" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="125dp"
+        android:layout_height="111dp"
+        android:layout_marginTop="32dp"
+        android:background="#777777"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/stat_sys_download" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
