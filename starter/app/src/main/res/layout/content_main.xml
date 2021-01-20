@@ -14,13 +14,15 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_margin="20dp"
-        android:layout_marginTop="16dp"
+        app:buttonColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:buttonColor="@color/colorPrimary"
-        app:text="@string/button_name"/>
+        app:text="@string/button_name"
+        app:textColor="@color/white"
+        app:loadingColor="@color/colorPrimaryDark"
+        app:loadingText="@string/button_loading"/>
 
     <RadioButton
         android:id="@+id/glide_button"
@@ -30,7 +32,8 @@
         app:layout_constraintBottom_toTopOf="@+id/load_app_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <RadioButton
         android:id="@+id/load_app_button"
@@ -54,13 +57,11 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="125dp"
-        android:layout_height="111dp"
-        android:layout_marginTop="32dp"
-        android:background="#777777"
+        android:layout_width="0dp"
+        android:layout_height="198dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/stat_sys_download" />
+        app:srcCompat="@drawable/ic_baseline_cloud_download_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
