@@ -43,6 +43,7 @@ class LoadingButton @JvmOverloads constructor(
                 }
                 valueAnimator.start()
             }
+            ButtonState.Completed -> invalidate()
         }
 
     }
@@ -56,7 +57,6 @@ class LoadingButton @JvmOverloads constructor(
 
     private fun drawButton(canvas: Canvas) {
         paint.color = buttonColor
-        paint.style = Paint.Style.FILL
         canvas.drawRect(0f, 0f, widthSize.toFloat(), heightSize.toFloat(), paint)
         paint.color = textColor
         if (buttonState == ButtonState.Completed) {
@@ -67,16 +67,21 @@ class LoadingButton @JvmOverloads constructor(
     private fun drawAnimatingButton(canvas: Canvas) {
         paint.color = loadingColor
         canvas.drawRect(0f, 0f, progress, heightSize.toFloat(), paint)
-        canvas.drawArc((widthSize - 100f),
-                (heightSize - 50f) / 2,
-                (widthSize - 50f ),
-                (heightSize + 50f )/ 2,
-                0F,angle,
-                true,paint)
+        drawAnimatingCircle(canvas)
         paint.color = textColor
         if (buttonState == ButtonState.Loading){
             canvas.drawText(loadingText, 0, loadingText.length, widthSize.toFloat()/2, (heightSize.toFloat() + 16)/2, paint)
         }
+    }
+
+    private fun drawAnimatingCircle(canvas: Canvas) {
+        paint.color = Color.YELLOW
+        canvas.drawArc((widthSize - 100f),
+                (heightSize - 50f) / 2,
+                (widthSize - 50f),
+                (heightSize + 50f) / 2,
+                0F, angle,
+                true, paint)
     }
 
 
