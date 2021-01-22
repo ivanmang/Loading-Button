@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var notificationManager: NotificationManager
     private lateinit var pendingIntent: PendingIntent
     private lateinit var action: NotificationCompat.Action
+    var fileName = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,14 +48,17 @@ class MainActivity : AppCompatActivity() {
             when {
                 glide_button.isChecked -> {
                     URL = "https://github.com/bumptech/glide"
+                    fileName = getString(R.string.glide_button_text)
                     download()
                 }
                 load_app_button.isChecked -> {
                     URL = "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter"
+                    fileName = getString(R.string.loadingapp_button_text)
                     download()
                 }
                 retrofit_button.isChecked -> {
                     URL = "https://github.com/square/retrofit"
+                    fileName = getString(R.string.retrofit_button_text)
                     download()
                 } else -> {
                     Toast.makeText(applicationContext, applicationContext.getText(R.string.please_select), Toast.LENGTH_SHORT).show()
@@ -64,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         createChannel(
-                getString(R.string.notification_channel_id),
+                CHANNEL_ID,
                 getString(R.string.notification_channel_name)
         )
     }
@@ -72,7 +76,7 @@ class MainActivity : AppCompatActivity() {
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
-            notificationManager.sendNotification(applicationContext.getString(R.string.button_loading), applicationContext)
+            notificationManager.sendNotification(fileName, applicationContext.getString(R.string.notification_description), applicationContext)
         }
     }
 
@@ -92,8 +96,8 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private var URL =
-            "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
-        private const val CHANNEL_ID = "channelId"
+            ""
+        const val CHANNEL_ID = "channelId"
     }
 
     private fun createChannel(channelId: String, channelName: String) {

@@ -8,4 +8,54 @@
     tools:context=".DetailActivity"
     tools:showIn="@layout/activity_detail">
 
+    <TextView
+        android:id="@+id/file_name"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginStart="32dp"
+        android:text="@string/file_name"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/Status"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/file_name"
+        app:layout_constraintTop_toBottomOf="@+id/file_name" />
+
+    <TextView
+        android:id="@+id/file_name_downloaded"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/file_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/file_name"
+        tools:text="@string/glide_button_text" />
+
+    <TextView
+        android:id="@+id/download_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@+id/status"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/status"
+        tools:text="Success" />
+
+    <Button
+        android:id="@+id/ok_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@android:string/ok"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/status" />
 </androidx.constraintlayout.widget.ConstraintLayout>
