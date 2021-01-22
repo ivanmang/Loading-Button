@@ -24,36 +24,38 @@
         app:loadingColor="@color/colorPrimaryDark"
         app:loadingText="@string/button_loading"/>
 
-    <RadioButton
-        android:id="@+id/glide_button"
-        android:layout_width="wrap_content"
+    <RadioGroup
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/glide_button_text"
-        app:layout_constraintBottom_toTopOf="@+id/load_app_button"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/custom_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
 
-    <RadioButton
-        android:id="@+id/load_app_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/loadingapp_button_text"
-        app:layout_constraintBottom_toTopOf="@+id/retrofit_button"
-        app:layout_constraintStart_toStartOf="@+id/glide_button"
-        app:layout_constraintTop_toBottomOf="@+id/glide_button" />
+        <RadioButton
+            android:id="@+id/glide_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/glide_button_text" />
 
-    <RadioButton
-        android:id="@+id/retrofit_button"
-        style="@style/Widget.AppCompat.CompoundButton.RadioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/retrofit_button_text"
-        android:textAlignment="viewStart"
-        app:layout_constraintBottom_toTopOf="@+id/custom_button"
-        app:layout_constraintStart_toStartOf="@+id/load_app_button"
-        app:layout_constraintTop_toBottomOf="@+id/load_app_button" />
+        <RadioButton
+            android:id="@+id/load_app_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loadingapp_button_text" />
+
+        <RadioButton
+            android:id="@+id/retrofit_button"
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/retrofit_button_text"
+            android:textAlignment="viewStart" />
+    </RadioGroup>
 
     <ImageView
         android:id="@+id/imageView"

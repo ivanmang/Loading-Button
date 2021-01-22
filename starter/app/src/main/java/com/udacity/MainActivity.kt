@@ -13,9 +13,11 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import com.udacity.util.cancelNotifications
 import com.udacity.util.sendNotification
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -41,9 +43,24 @@ class MainActivity : AppCompatActivity() {
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
         custom_button.setOnClickListener {
-            //download()
-            Log.i("Sending", "done")
-            notificationManager.sendNotification(applicationContext.getString(R.string.button_loading), applicationContext)
+            notificationManager.cancelNotifications()
+            when {
+                glide_button.isChecked -> {
+                    URL = "https://github.com/bumptech/glide"
+                    download()
+                }
+                load_app_button.isChecked -> {
+                    URL = "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter"
+                    download()
+                }
+                retrofit_button.isChecked -> {
+                    URL = "https://github.com/square/retrofit"
+                    download()
+                } else -> {
+                    Toast.makeText(applicationContext, applicationContext.getText(R.string.please_select), Toast.LENGTH_SHORT).show()
+                }
+            }
+
         }
 
         createChannel(
@@ -55,6 +72,7 @@ class MainActivity : AppCompatActivity() {
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+            notificationManager.sendNotification(applicationContext.getString(R.string.button_loading), applicationContext)
         }
     }
 
@@ -73,7 +91,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val URL =
+        private var URL =
             "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
         private const val CHANNEL_ID = "channelId"
     }
@@ -91,7 +109,7 @@ class MainActivity : AppCompatActivity() {
             notificationChannel.enableVibration(true)
             notificationChannel.description = "Download Complete"
 
-            val notificationManager = this.getSystemService(
+            notificationManager = this.getSystemService(
                     NotificationManager::class.java
             )
             notificationManager.createNotificationChannel(notificationChannel)
