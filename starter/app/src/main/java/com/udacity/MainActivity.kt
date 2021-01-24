@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import com.udacity.util.cancelNotifications
 import com.udacity.util.sendNotification
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_detail.*
 import kotlinx.android.synthetic.main.content_main.*
 
 
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var pendingIntent: PendingIntent
     private lateinit var action: NotificationCompat.Action
     var fileName = ""
+    var status = Status.FAIL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,16 +52,19 @@ class MainActivity : AppCompatActivity() {
                     URL = "https://github.com/bumptech/glide"
                     fileName = getString(R.string.glide_button_text)
                     download()
+                    custom_button.buttonState = ButtonState.Loading
                 }
                 load_app_button.isChecked -> {
                     URL = "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter"
                     fileName = getString(R.string.loadingapp_button_text)
                     download()
+                    custom_button.buttonState = ButtonState.Loading
                 }
                 retrofit_button.isChecked -> {
                     URL = "https://github.com/square/retrofit"
                     fileName = getString(R.string.retrofit_button_text)
                     download()
+                    custom_button.buttonState = ButtonState.Loading
                 } else -> {
                     Toast.makeText(applicationContext, applicationContext.getText(R.string.please_select), Toast.LENGTH_SHORT).show()
                 }
@@ -76,7 +81,11 @@ class MainActivity : AppCompatActivity() {
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
-            notificationManager.sendNotification(fileName, applicationContext.getString(R.string.notification_description), applicationContext)
+            if (downloadID == id) {
+                custom_button.buttonState = ButtonState.Completed
+                status = Status.SUCCESS
+            }
+            notificationManager.sendNotification(fileName, status, applicationContext.getString(R.string.notification_description), applicationContext)
         }
     }
 
@@ -105,7 +114,7 @@ class MainActivity : AppCompatActivity() {
             val notificationChannel = NotificationChannel(
                     channelId,
                     channelName,
-                    NotificationManager.IMPORTANCE_LOW
+                    NotificationManager.IMPORTANCE_DEFAULT
             )
 
             notificationChannel.enableLights(true)

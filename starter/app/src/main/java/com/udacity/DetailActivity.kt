@@ -20,8 +20,10 @@ class DetailActivity : AppCompatActivity() {
         }
 
         val name = intent.getStringExtra("filename")
+        val status = intent.getStringExtra("status")
 
         file_name_downloaded.text = name
+        download_status.text = status
     }
 
 }

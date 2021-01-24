@@ -9,6 +9,7 @@ import androidx.core.app.NotificationCompat
 import com.udacity.DetailActivity
 import com.udacity.MainActivity
 import com.udacity.R
+import com.udacity.Status
 
 /**
  * Builds and delivers a notification.
@@ -20,11 +21,12 @@ import com.udacity.R
 
 private val NOTIFICATION_ID = 0
 
-fun NotificationManager.sendNotification(fileName:String, messageBody: String, applicationContext: Context) {
+fun NotificationManager.sendNotification(fileName:String, status:Status,  messageBody: String, applicationContext: Context) {
 
     val contentIntent = Intent(applicationContext, DetailActivity::class.java)
 
     contentIntent.putExtra("filename", fileName)
+    contentIntent.putExtra("status", status.value)
 
     val contentPendingIntent = PendingIntent.getActivity(
             applicationContext,

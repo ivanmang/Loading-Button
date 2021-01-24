@@ -6,3 +6,5 @@ sealed class ButtonState {
     object Loading : ButtonState()
     object Completed : ButtonState()
 }
+
+enum class Status(val value:String)  {SUCCESS("Success"), FAIL("Fail")}

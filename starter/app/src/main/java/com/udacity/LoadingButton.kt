@@ -29,7 +29,7 @@ class LoadingButton @JvmOverloads constructor(
 
     private val valueAnimator = ValueAnimator()
 
-    private var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
+    var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
         when(new){
             ButtonState.Loading -> {
                 valueAnimator.duration = 2000
@@ -45,7 +45,6 @@ class LoadingButton @JvmOverloads constructor(
             }
             ButtonState.Completed -> invalidate()
         }
-
     }
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
