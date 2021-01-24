@@ -32,16 +32,24 @@ class LoadingButton @JvmOverloads constructor(
     var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
         when(new){
             ButtonState.Loading -> {
-                valueAnimator.duration = 2000
-                valueAnimator.interpolator = LinearInterpolator()
-                valueAnimator.setFloatValues(0.0f, width.toFloat())
-                valueAnimator.repeatCount = ValueAnimator.INFINITE
-                valueAnimator.addUpdateListener {
-                    progress = it.animatedValue as Float
-                    angle = (progress / widthSize)*360
-                    invalidate()
+                valueAnimator.apply {
+                    duration = 2000
+                    interpolator = LinearInterpolator()
+                    setFloatValues(0.0f, width.toFloat())
+                    repeatCount = ValueAnimator.INFINITE
+                    addUpdateListener {
+                        progress = it.animatedValue as Float
+                        angle = (progress / widthSize)*360
+                        invalidate()
+                    }
+                    start()
                 }
-                valueAnimator.start()
+            }
+            ButtonState.Completed -> {
+                progress = 0f
+                angle = (progress / widthSize)*360
+                valueAnimator.cancel()
+                invalidate()
             }
         }
     }
@@ -57,7 +65,7 @@ class LoadingButton @JvmOverloads constructor(
         paint.color = buttonColor
         canvas.drawRect(0f, 0f, widthSize.toFloat(), heightSize.toFloat(), paint)
         paint.color = textColor
-        if (buttonState == ButtonState.Completed) {
+        if (progress == 0.0f){
             canvas.drawText(label, 0, label.length, widthSize.toFloat()/2, (heightSize.toFloat() + 16)/2, paint)
         }
     }
@@ -67,7 +75,7 @@ class LoadingButton @JvmOverloads constructor(
         canvas.drawRect(0f, 0f, progress, heightSize.toFloat(), paint)
         drawAnimatingCircle(canvas)
         paint.color = textColor
-        if (buttonState == ButtonState.Loading){
+        if (progress < width && progress > 0){
             canvas.drawText(loadingText, 0, loadingText.length, widthSize.toFloat()/2, (heightSize.toFloat() + 16)/2, paint)
         }
     }
@@ -84,7 +92,6 @@ class LoadingButton @JvmOverloads constructor(
 
 
     init {
-        buttonState = ButtonState.Completed
         context.withStyledAttributes(attrs, R.styleable.LoadingButton) {
             buttonColor = getColor(R.styleable.LoadingButton_buttonColor, 0)
             label = getString(R.styleable.LoadingButton_text).toString()
@@ -102,9 +109,9 @@ class LoadingButton @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
         drawButton(canvas)
         drawAnimatingButton(canvas)
+        super.onDraw(canvas)
 
     }
 
