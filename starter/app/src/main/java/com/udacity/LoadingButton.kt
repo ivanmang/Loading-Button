@@ -43,7 +43,6 @@ class LoadingButton @JvmOverloads constructor(
                 }
                 valueAnimator.start()
             }
-            ButtonState.Completed -> invalidate()
         }
     }
 
